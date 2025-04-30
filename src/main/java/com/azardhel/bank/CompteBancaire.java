@@ -4,16 +4,28 @@ import java.util.UUID;
 
 public class CompteBancaire {
 
-    private UUID id = UUID.randomUUID();
+    private UUID id;
     final private String TITULAIRE;
     private Double solde;
     private ArrayList<Operation> historiqueOperations = new ArrayList<>();
 
     CompteBancaire(String TITULAIRE, Double solde)
     {
+        this.id = UUID.randomUUID();
         this.TITULAIRE = TITULAIRE;
         this.solde = solde;
     }
+
+    UUID getUuid()
+    {
+        return id;
+    }
+
+    String getUidString()
+    {
+        return id.toString();
+    }
+
 
     String getTitulaire()
     {
@@ -27,7 +39,7 @@ public class CompteBancaire {
 
     void getAllInfos()
     {
-        System.out.println("-> "+TITULAIRE+" sous l'id: "+id.toString()+" posséde actuellement sur son compte: "+solde+" euros.");
+        System.out.println("-> "+TITULAIRE+" sous l'id: "+getUidString()+" posséde actuellement sur son compte: "+solde+" euros.");
     }
 
 
