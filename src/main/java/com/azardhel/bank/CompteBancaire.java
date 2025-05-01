@@ -1,66 +1,43 @@
 package com.azardhel.bank;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 public class CompteBancaire {
 
     private UUID id;
-    final private String TITULAIRE;
+    private final String TITULAIRE;
     private Double solde;
-    private Map<UUID, Operation> historiqueOperations = new HashMap<>();
+    private List<Operation> historiqueOperations = new ArrayList<>();
 
-    CompteBancaire(String TITULAIRE, Double solde)
-    {
+    public CompteBancaire(String TITULAIRE, Double solde) {
         this.id = UUID.randomUUID();
         this.TITULAIRE = TITULAIRE;
         this.solde = solde;
     }
 
-    UUID getUuid()
-    {
+    public UUID getUuid() {
         return id;
     }
 
-    String getUidString()
-    {
-        return id.toString();
-    }
-
-
-    String getTitulaire()
-    {
+    public String getTitulaire() {
         return TITULAIRE;
     }
 
-    Double getSolde()
-    {
+    public Double getSolde() {
         return solde;
     }
 
-    void setSolde(Double montant)
-    {
+    public void setSolde(Double montant) {
         this.solde = montant;
     }
 
-    void getAllInfos()
-    {
-        System.out.println("-> "+TITULAIRE+" sous l'id: "+getUidString()+" posséde actuellement sur son compte: "+solde+" euros.");
+    public void addOperation(Operation o) {
+        this.historiqueOperations.add(o);
     }
 
-    void getAllHistory()
-    {
-        for (Operation op : historiqueOperations.values()){
-            System.out.println(op.commentaire+"\n");
-        }
+    public List<Operation> getHistorique() {
+        return historiqueOperations;
     }
-
-    void setHistory(Operation o)
-    {
-        this.historiqueOperations.put(this.id,o);
-    }
-
-
 }
-

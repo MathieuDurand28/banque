@@ -8,7 +8,7 @@ public class BanqueService implements BanqueImp {
     
     public void ajouterCompte(CompteBancaire compte) {
         comptes.put(compte.getUuid(), compte);
-        compte.setHistory(
+        compte.addOperation(
             new Operation(
             compte.getUuid(), 
             compte.getTitulaire(), 
@@ -25,14 +25,14 @@ public class BanqueService implements BanqueImp {
         CompteBancaire compte = comptes.get(id);
         if (compte == null) throw new CompteInexistantException("ID inconnu");
         compte.setSolde(compte.getSolde() + montant);
-        compte.setHistory(
+        compte.addOperation(
             new Operation(
             compte.getUuid(), 
             compte.getTitulaire(), 
             compte.getSolde(), 
             OperationType.DEPOSIT, 
             LocalDateTime.now(), 
-            "Dépot sur le compte: "+compte.getTitulaire()+" de la somme de: "+montant+" Euros")
+            "Dépot sur le compte de "+compte.getTitulaire()+" de la somme de: "+montant+" Euros")
         );
         
     }
@@ -42,7 +42,7 @@ public class BanqueService implements BanqueImp {
         CompteBancaire compte = comptes.get(id);
         if (compte.getSolde() < montant) throw new SoldeInsuffisantException("Solde insuffisant pour effectuer l'opération");
         compte.setSolde(compte.getSolde() - montant);
-        compte.setHistory(
+        compte.addOperation(
             new Operation(
             compte.getUuid(), 
             compte.getTitulaire(), 
@@ -62,7 +62,7 @@ public class BanqueService implements BanqueImp {
 
         fromCompte.setSolde(fromCompte.getSolde() - montant);
         toCompte.setSolde(toCompte.getSolde() + montant);
-        fromCompte.setHistory(
+        fromCompte.addOperation(
             new Operation(
             fromCompte.getUuid(), 
             fromCompte.getTitulaire(), 
