@@ -1,5 +1,7 @@
 package com.azardhel.bank;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class CompteBancaire {
@@ -7,7 +9,7 @@ public class CompteBancaire {
     private UUID id;
     final private String TITULAIRE;
     private Double solde;
-    private ArrayList<Operation> historiqueOperations = new ArrayList<>();
+    private Map<UUID, Operation> historiqueOperations = new HashMap<>();
 
     CompteBancaire(String TITULAIRE, Double solde)
     {
@@ -37,9 +39,26 @@ public class CompteBancaire {
         return solde;
     }
 
+    void setSolde(Double montant)
+    {
+        this.solde = montant;
+    }
+
     void getAllInfos()
     {
         System.out.println("-> "+TITULAIRE+" sous l'id: "+getUidString()+" posséde actuellement sur son compte: "+solde+" euros.");
+    }
+
+    void getAllHistory()
+    {
+        for (Operation op : historiqueOperations.values()){
+            System.out.println(op.commentaire+"\n");
+        }
+    }
+
+    void setHistory(Operation o)
+    {
+        this.historiqueOperations.put(this.id,o);
     }
 
 
